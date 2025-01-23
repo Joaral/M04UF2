@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8" />
-		<title>hueveras de carton 2</title>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.87.0/phaser.min.js"></script>
-	  <script>
-		let canvas_w=800;
-		let canvas_h=450;
+<head>
+    <meta charset="UTF-8" />
+    <title>Hueveras de Cartón 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.87.0/phaser.min.js"></script>
+    <script>
+        let canvas_w = 800;
+        let canvas_h = 450;
 
-		let config = {width: 800,
-		height:450,
-		scene: {
-		preload: precarga,
-		create: crea, 
-		update: actualiza
-		}
-		};
-	  
-let game = new Phaser.Game(config);
-let rect;
-let rect_dir = 1;
-function precarga ()
-{
+        let config = {
+            width: canvas_w,
+            height: canvas_h,
+            scene: {
+                preload: precarga,
+                create: crea,
+                update: actualiza
+            }
+        };
 
-}
+        let game = new Phaser.Game(config);
+        let rect;
+        let cursors;
 
-function crea () 
-{
-	rect =this.add.rectangle(400,255,32,32, 0xffffff);
-}
+        function precarga() {
+            // Aquí puedes cargar recursos si es necesario
+        }
 
-function actualiza ()
-{
-	rect.x += rect_dir;
-	if (rect.x <= 0 || rect.x >= canvas_w){
-		rect_dir = -rect_dir;
-	}
-}
-		</script>
-	</head>
-	<body>
-	</body>
+        function crea() {
+            // Crear el rectángulo
+            rect = this.add.rectangle(400, 255, 32, 32, 0xffffff);
+
+            // Configurar los cursores
+            cursors = this.input.keyboard.createCursorKeys();
+        }
+
+        function actualiza() {
+            // Reiniciar movimiento
+            let velocidad = 5;
+
+            if (cursors.left.isDown && rect.x > 16) {
+                rect.x -= velocidad;
+            }
+            if (cursors.right.isDown && rect.x < canvas_w - 16) {
+                rect.x += velocidad;
+            }
+            if (cursors.up.isDown && rect.y > 16) {
+                rect.y -= velocidad;
+            }
+            if (cursors.down.isDown && rect.y < canvas_h - 16) {
+                rect.y += velocidad;
+            }
+        }
+      //https://docs.phaser.io/api-documentation/class/input-keyboard-key, pagina web donde he encontrado estas booleanas.
+    </script>
+</head>
+<body>
+</body>
 </html>
-
-
-
