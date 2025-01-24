@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8" />
+		<title>hueveras de carton 2</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.87.0/phaser.min.js"></script>
+	  <script>
+		let canvas_w=800;
+		let canvas_h=450;
+		
+		let config = {width: 800,
+		height:450,
+		scene: {
+		preload: precarga,
+		create: crea, 
+		update: actualiza
+		}
+	};
+	  
+let game = new Phaser.Game(config);
+let rect;
+let rect_dir = 1;
+
+let huevera_b, huevera_m, huevera_d;
+let huevo_b, huevo_m, huevo_d;
+
+function precarga ()
+{
+	this.load.image('huevera_b', '/imgs/huevera.png');
+	this.load.image('huevo_b', '/imgs/huevo.png');
+}
+
+function crea () 
+{
+	let azul = Phaser.Display.Color.GetColor(0, 120, 255);
+	//rect =this.add.rectangle(400,255,32,32, 0xffffff);
+	huevera_b = this.add.image(400, 160, 'huevera_b');
+	huevera_b.setScale(.5);
+	huevera_b.setTint(azul);
+	huevo_b = this.add.image(400, 260, 'huevo_b');
+	huevo_b.setScale(.5);
+	huevo_b.setTint(azul);
+}
+
+function actualiza (){
+
+
+
+}
+
+function actualiza_rect ()
+{
+	rect.x += rect_dir;
+	if (rect.x <= 0 || rect.x >= canvas_w){
+		rect_dir = -rect_dir;
+	}
+}
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
+
+
+
