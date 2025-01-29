@@ -18,49 +18,53 @@
 	};
 	  
 let game = new Phaser.Game(config);
-let rect;
-let rect_dir = 1;
 
-let huevera_b, huevera_m, huevera_d;
-let huevo_b, huevo_m, huevo_d;
+let hueveras = [];
+let huevos = [];
+let colores = [0xffffff, 0x8B4513, 0xFFD700]; // Blanco, marrón y dorado
 
 function precarga ()
 {
-	this.load.image('huevera_b', '/imgs/huevera.png');
-	this.load.image('huevo_b', '/imgs/huevo.png');
+	this.load.image('huevera', '/imgs/huevera.png');
+	this.load.image('huevo', '/imgs/huevo.png');
+	this.load.image('fondo', '/imgs/fondo.jpg'); // Imagen de fondo general
+    this.load.image('fondo_hueveras', '/imgs/fondo_hueveras.jpg'); // Imagen de fondo para la columna
 }
 
 function crea () 
 {
-	let azul = Phaser.Display.Color.GetColor(0, 120, 255);
-	//rect =this.add.rectangle(400,255,32,32, 0xffffff);
-	huevera_b = this.add.image(400, 160, 'huevera_b');
-	huevera_b.setScale(.5);
-	huevera_b.setTint(azul);
-	huevo_b = this.add.image(400, 260, 'huevo_b');
-	huevo_b.setScale(.5);
-	huevo_b.setTint(azul);
+	// Fondo principal
+    this.add.image(canvas_w / 2, canvas_h / 2, 'fondo').setDisplaySize(canvas_w, canvas_h);
+    
+    // Fondo de la columna izquierda
+    let columna = this.add.image(150, canvas_h / 2, 'fondo_hueveras');
+    columna.setDisplaySize(300, canvas_h);
+
+    // Posicionar hueveras en columna
+    for (let i = 0; i < 3; i++) {
+        let huevera = this.add.image(150, 100 + i * 120, 'huevera');
+        huevera.setScale(0.5);
+        huevera.setTint(colores[i]);
+        hueveras.push(huevera);
+    }
+
+    // Posicionar huevos en fila y detectar clics
+    for (let i = 0; i < 3; i++) {
+        let huevo = this.add.image(500 + i * 120, 300, 'huevo');
+        huevo.setScale(0.5);
+        huevo.setTint(colores[i]);
+        huevo.setInteractive();
+        huevo.on('pointerdown', () => {
+            console.log(`Huevo clicado: ${colores[i] === 0xffffff ? 'Blanco' : colores[i] === 0x8B4513 ? 'Marrón' : 'Dorado'}`);
+        });
+        huevos.push(huevo);
+    }
 }
 
-function actualiza (){
-
-
-
-}
-
-function actualiza_rect ()
-{
-	rect.x += rect_dir;
-	if (rect.x <= 0 || rect.x >= canvas_w){
-		rect_dir = -rect_dir;
-	}
-}
-
+function actualiza (){}
 		</script>
 	</head>
 	<body>
 	</body>
 </html>
-
-
 
